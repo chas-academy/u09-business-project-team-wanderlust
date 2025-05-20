@@ -16,5 +16,4 @@ export const getCountryByName = async (name: string) => {
         throw new Error(`Hämtning av ${name} misslyckades`);
     }
     return await response.json();
-
-}
+};

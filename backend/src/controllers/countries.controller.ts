@@ -1,0 +1,37 @@
+import { Request, Response } from 'express';
+import { getAllCountries, getCountryByName } from '../services/countries.service';
+
+export const getCountries = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const countries = await getAllCountries();
+        const filtered = countries.map((c: any) => ({
+        name: c.name.common,
+        code: c.cca2,
+        flag: c.flags.svg,
+        }));
+        res.status(200).json(filtered);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message || 'Något gick fel vid hämtning av länder' });
+    }
+};
+
+export const getCountry = async (req: Request, res: Response): Promise<any> => {
+    const { name } = req.params;
+    try {
+        const countryData = await getCountryByName(name);
+        const country = countryData[0];
+        if (!country) {
+        return res.status(404).json({ error: `Land med namn ${name} hittades inte` });
+        }
+        const filtered = {
+        name: country.name.common,
+        code: country.cca2,
+        flag: country.flags.svg,
+        region: country.region,
+        population: country.population,
+        };
+        res.status(200).json(filtered);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message || `Något gick fel vid hämtning av ${name}` });
+    }
+};
