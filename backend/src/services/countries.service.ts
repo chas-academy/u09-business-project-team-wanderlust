@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const API_URL = 'https://restcountries.com/v3.1';
+const API_URL = 'https://restcountries.com/v3.1/all';
 
 export const getAllCountries = async () => {
     const response = await fetch(`${API_URL}/all`);
