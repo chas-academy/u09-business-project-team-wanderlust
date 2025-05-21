@@ -1,6 +1,10 @@
 import User from '../models/user.model';
 import { getCountryByName } from './countries.service';
 
+export const getUserById = async (userId: string) => {
+    return await User.findById(userId);
+}
+
 export const addToFavorites = async (userId: string, code: string) => {
     return await User.findByIdAndUpdate(userId, {
         $addToSet: { favoriteCountries: code }
