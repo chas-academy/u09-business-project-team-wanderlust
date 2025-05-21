@@ -31,4 +31,16 @@ export const compareCountries = async (name1: string, name2: string) => {
             Object.keys(country2.currency || {})[0],
         ]
     }
-}
+};
+
+export const removeFromFavorites = async (userId: string, code: string) => {
+    return await User.findByIdAndUpdate(userId, {
+        $pull: { favoriteCountries: code }
+    }, { new: true });
+};
+
+export const removeFromTravels = async (userId: string, code: string) => {
+    return await User.findByIdAndUpdate(userId, {
+        $pull: { travelPlans: code }
+    }, { new: true });
+};

@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { addToFavorites, addToTravels, compareCountries } from "../services/user.service";
+import { 
+    addToFavorites,
+    removeFromFavorites, 
+    addToTravels,
+    removeFromTravels,
+    compareCountries } from "../services/user.service";
 
 export const addFave = async (req: Request, res: Response) => {
     try {
@@ -8,6 +13,12 @@ export const addFave = async (req: Request, res: Response) => {
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
+};
+
+export const removeFave = async (req: Request, res: Response) => {
+    const { id, code } = req.params;
+    const user = await removeFromFavorites(id, code);
+    res.status(200).json(user);
 };
 
 export const addTravel = async (req: Request, res: Response) => {
@@ -19,9 +30,15 @@ export const addTravel = async (req: Request, res: Response) => {
     }
 };
 
+export const removeTravel = async (req: Request, res: Response) => {
+    const { id, code } = req.params;
+    const user = await removeFromTravels(id, code);
+    res.status(200).json(user);
+};
+
 export const compare = async (req: Request, res: Response) => {
     try{
-        const result = await addToTravels(req.params.name1, req.params.name2);
+        const result = await compareCountries(req.params.name1, req.params.name2);
         res.status(200).json(result);
     } catch (err: any) {
         res.status(500).json({ error: err.message });
