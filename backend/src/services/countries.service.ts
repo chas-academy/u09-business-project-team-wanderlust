@@ -15,5 +15,17 @@ export const getCountryByName = async (name: string) => {
     if (!response.ok) {
         throw new Error(`Hämtning av ${name} misslyckades`);
     }
-    return await response.json();
+
+    const data = await response.json();
+
+    // Filtrera bort delmatchningar
+    const exactMatch = data.find((country: any) =>
+        country.name.common.toLowerCase() === name.toLowerCase()
+    );
+
+    if (!exactMatch) {
+        throw new Error(`Land med namn "${name}" hittades inte`);
+    }
+
+    return exactMatch;
 };
