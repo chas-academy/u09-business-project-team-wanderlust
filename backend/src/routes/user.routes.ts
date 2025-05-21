@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
     getUser,
+    getUsers,
     addFave,
     removeFave,
     addTravel,
@@ -12,6 +13,7 @@ const router = Router();
 
 // ANVÄNDARE
 router.get('/:id', getUser);
+router.get('/', getUsers);
 
 // FAVORITLÄNDER
 router.post('/:id/favorites/:code', addFave);

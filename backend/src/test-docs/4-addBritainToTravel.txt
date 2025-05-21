@@ -1,0 +1,1 @@
+{"_id":"682dc1e5bcea609ac15c15e4","username":"TestUser","email":"test@example.com","favoriteCountries":["SE","IR"],"travelPlans":["JP","US","GB"]}

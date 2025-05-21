@@ -1,0 +1,1 @@
+{"countries":["Sweden","Iran"],"region":["Europe","Asia"],"population":[10353442,83992953],"currencies":["SEK","IRR"]}
