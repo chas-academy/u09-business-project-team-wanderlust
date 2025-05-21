@@ -26,9 +26,9 @@ export const compareCountries = async (name1: string, name2: string) => {
         countries: [country1.name.common, country2.name.common],
         region: [country1.region, country2.region],
         population: [country1.name.population, country2.name.population],
-        currencies: [
-            Object.keys(country1.currencies || {})[0],
-            Object.keys(country2.currencies || {})[0],
+        currency: [
+            Object.keys(country1.currency || {})[0],
+            Object.keys(country2.currency || {})[0],
         ]
     }
 }

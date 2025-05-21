@@ -26,6 +26,7 @@ export const getCountry = async (req: Request, res: Response): Promise<any> => {
             flag: country.flags.svg,
             region: country.region,
             population: country.population,
+            currency: country.currency
         };
 
         res.status(200).json(filtered);
