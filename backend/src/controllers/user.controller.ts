@@ -9,6 +9,7 @@ import {
 
 export const getUser = async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params;
+    console.log(id);
     try {
         const user = await getUserById(id);
         if (!user) return res.status(404).json({ error: 'Användare hittades inte' });
