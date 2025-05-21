@@ -1,6 +1,7 @@
 import express from "express";
 import { connectDB } from './config/db';
 import countryRoutes from './routes/countries.routes'
+import userRoutes from './routes/user.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,6 +10,7 @@ connectDB();
 
 app.use(express.json());
 app.use('/api/countries', countryRoutes);
+app.use('/api/users', userRoutes);
 
 app.get("/", (req, res) => {
     res.send("Backend page is live!");

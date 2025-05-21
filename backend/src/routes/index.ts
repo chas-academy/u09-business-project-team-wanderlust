@@ -1,6 +1,7 @@
 import express from 'express';
 import countriesRoutes from './countries.routes';
 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
