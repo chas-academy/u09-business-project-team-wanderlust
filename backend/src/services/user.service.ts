@@ -1,6 +1,10 @@
 import User from '../models/user.model';
 import { getCountryByName } from './countries.service';
 
+export const getAllUsers = async () => {
+    return await User.find({});
+};
+
 export const getUserById = async (userId: string) => {
     return await User.findById(userId);
 };
