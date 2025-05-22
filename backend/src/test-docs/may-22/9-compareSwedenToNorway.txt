@@ -1,0 +1,1 @@
+{"countries":["Sweden","Norway"],"region":["Europe","Europe"],"population":[10353442,5379475],"currencies":["SEK","NOK"]}

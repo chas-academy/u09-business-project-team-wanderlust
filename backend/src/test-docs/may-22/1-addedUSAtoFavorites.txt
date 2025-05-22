@@ -1,0 +1,1 @@
+{"message":"Landet US har lagts till i din favorites-lista.","list":{"_id":"682eee507ad9e30f681f1920","user":"682dc1e5bcea609ac15c15e4","type":"favorites","__v":0,"countries":[["SE"],["IR"],["US"]]}}

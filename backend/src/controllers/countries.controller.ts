@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getAllCountries, getCountryByName } from '../services/countries.service';
+import { getAllCountries, getCountryByName, compareCountries } from '../services/countries.service';
 
 export const getCountries = async (req: Request, res: Response): Promise<any> => {
     try {
@@ -35,3 +35,11 @@ export const getCountry = async (req: Request, res: Response): Promise<any> => {
     }
 };
 
+export const compare = async (req: Request, res: Response) => {
+    try{
+        const result = await compareCountries(req.params.name1, req.params.name2);
+        res.status(200).json(result);
+    } catch (err: any) {
+        res.status(500).json({ error: err.message });
+    }
+};

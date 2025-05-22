@@ -1,0 +1,1 @@
+{"message":"Landet JP har tagits bort från din travels-lista.","list":{"_id":"682f1e5d7ad9e30f681fe5c3","type":"travels","user":"682dc1e5bcea609ac15c15e4","__v":0,"countries":[]}}
