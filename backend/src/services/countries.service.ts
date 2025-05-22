@@ -38,3 +38,20 @@ export const getCountryByCode = async (code: string) => {
     const data = await response.json();
     return Array.isArray(data) ? data[0] : data;
 };
+
+export const compareCountries = async (name1: string, name2: string) => {
+    const [country1, country2] = await Promise.all([
+        getCountryByName(name1),
+        getCountryByName(name2)
+    ]);
+
+    return {
+        countries: [country1.name.common, country2.name.common],
+        region: [country1.region, country2.region],
+        population: [country1.population, country2.population],
+        currencies: [
+            Object.keys(country1.currencies || {})[0],
+            Object.keys(country2.currencies || {})[0],
+        ]
+    }
+};
