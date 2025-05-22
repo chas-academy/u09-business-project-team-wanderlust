@@ -2,7 +2,11 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IList extends Document {
     user: mongoose.Types.ObjectId;
-    type: string;
+    type: { 
+        type: String,
+        enum: ["fvorites", "travels"],
+        required: true,
+    }
     countries: string[];
 }
 

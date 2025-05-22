@@ -1,0 +1,1 @@
+{"userId":"682dc1e5bcea609ac15c15e4","type":"favorites","countries":[{"code":["SE"],"name":"Sweden","flag":"https://flagcdn.com/w320/se.png","region":"Europe","population":10353442},{"code":["IR"],"name":"Iran","flag":"https://flagcdn.com/w320/ir.png","region":"Asia","population":83992953}]}
