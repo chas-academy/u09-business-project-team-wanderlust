@@ -1,21 +1,40 @@
 import { Request, Response } from "express";
-import { addCountry, removeCountry, getList } from "../services/list.service";
+import { addCountry, removeCountry, getUserListWithDetails, getUserListData } from "../services/list.service";
 
-export const addToList = async (req: Request, res: Response) => {
-    const { userId, type, code } = req.params;
+
+export const addToList = async (req: Request, res: Response): Promise<any> => {
+    const { userId, type } = req.params;
+    const { code } = req.body;
+
+    if (!code) {
+        return res.status(400).json({ error: "Country code krävs" });
+    }
+
     try {
         const updated = await addCountry(userId, type, code);
-        res.status(200).json(updated);
+        res.status(200).json({
+            message: `Landet ${code} har lagts till i din ${type}-lista.`,
+            list: updated,
+        });
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
 };
 
-export const removeFromList = async (req: Request, res: Response) => {
-    const { userId, type, code } = req.params;
+export const removeFromList = async (req: Request, res: Response): Promise<any> => {
+    const { userId, type } = req.params;
+    const { code } = req.body;
+
+    if (!code) {
+        return res.status(400).json({ error: "Country code krävs" });
+    }
+
     try {
         const updated = await removeCountry(userId, type, code);
-        res.status(200).json(updated);
+        res.status(200).json({
+            message: `Landet ${code} har tagits bort från din ${type}-lista.`,
+            list: updated,
+        });
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
@@ -24,10 +43,22 @@ export const removeFromList = async (req: Request, res: Response) => {
 export const getUserList = async (req: Request, res: Response): Promise<any> => {
     const { userId, type } = req.params;
     try {
-        const list = await getList(userId, type);
-        if (!list) return res.status(404).json({ message: "List not found" });
-        res.status(200).json(list);
-    } catch (err: any) {
-        res.status(500).json({ error: err.message });
+        const countries = await getUserListData(userId, type);
+        res.status(200).json({ countries });
+    } catch (error: any) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
+export const getUserListController = async (req: Request, res: Response): Promise<any> => {
+    const { userId, type } = req.params;
+    try {
+        const listWithDetails = await getUserListWithDetails(userId, type);
+        if (!listWithDetails) {
+        return res.status(404).json({ message: "Listan hittades inte" });
+        }
+        res.status(200).json(listWithDetails);
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
     }
 };

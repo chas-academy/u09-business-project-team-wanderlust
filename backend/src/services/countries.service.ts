@@ -29,3 +29,12 @@ export const getCountryByName = async (name: string) => {
 
     return exactMatch;
 };
+
+export const getCountryByCode = async (code: string) => {
+    const response = await fetch(`${BASE_API_URL}/alpha/${code}`);
+    if (!response.ok) {
+        throw new Error(`Kan inte hämta land med kod: ${code}`);
+    }
+    const data = await response.json();
+    return Array.isArray(data) ? data[0] : data;
+};

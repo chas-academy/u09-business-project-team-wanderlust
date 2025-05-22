@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { addToList, removeFromList, getUserList } from "../controllers/list.controller";
+import { addToList, removeFromList, getUserList, getUserListController } from "../controllers/list.controller";
 
 const router = Router();
 
 // Ex: /api/lists/:userId/favorites/SE
-router.post("/:userId/:type/:code", addToList);
-router.delete("/:userId/:type/:code", removeFromList);
-router.get("/:userId/:type", getUserList);
+router.post("/:userId/:type", addToList);
+router.delete("/:userId/:type", removeFromList);
+router.get('/:userId/:type', getUserListController);
 
 export default router;
