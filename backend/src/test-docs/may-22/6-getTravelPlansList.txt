@@ -1,0 +1,1 @@
+{"userId":"682dc1e5bcea609ac15c15e4","type":"travels","countries":[{"code":["JP"],"name":"Japan","flag":"https://flagcdn.com/w320/jp.png","region":"Asia","population":125836021}]}
