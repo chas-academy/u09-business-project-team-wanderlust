@@ -43,21 +43,29 @@ return (
     {error && <p className="text-red-600">{error}</p>}
 
     {!loading && !error && countries.length > 0 && (
-      <ul className="country-list grid grid-cols-2 md:grid-cols-4 gap-4">
-        {countries.map((country) => (
-            <li key={country.code} className="border rounded p-4 shadow">
-              <div className="flag-container mb-2">
-                <img src={country.flag} alt={country.name} />
-              </div>
-              <h2 className="text-lg font-semibold">{country.name}</h2>
-              <p className="text-gray-500">{country.code}</p>
+<div
+          style={{ maxHeight: '400px', overflowY: 'auto' }}
+          className="border border-gray-300 rounded p-4"
+        >
+          <ul className="country-list grid grid-cols-2 md:grid-cols-4 gap-4">
+            {countries.map((country) => (
+              <li
+                key={country.code}
+                className="border rounded p-2 shadow text-center"
+              >
+                <h2 className="text-sm font-semibold mb-1">{country.name}</h2>
+                <p className="text-gray-500 text-xs mb-2">{country.code}</p>
+                <div className="flag-container">
+                  <img src={country.flag} alt={country.name} />
+                </div>
             </li>
         ))}
       </ul>
+      </div>
     )}
   </div>
 );
 
-}
+};
 
 export default HomePage;
