@@ -30,13 +30,24 @@ const HomePage = () => {
 
 return (
   <div className="p-6">
-    <h1 className="text-3xl font-bold mb-6">Welcome to Wanderlust!</h1>
+    <h1 className="text-3xl font-bold mb-6">Välkommen till Wanderlust!</h1>
+    <p className="mb-4">
+      Här kan du söka efter länder och som inloggad användare skapa egna listor!
+      Börja planera dina semesterdrömmar redan nu.
+    </p>
+    <p className="mb-4">
+      Utforska flaggor, landskoder och intressanta fakta om varje land.
+      Spara dina favoritdestinationer och skapa personliga reseplaner.
+    </p>
+    <p className="mb-6">
+      Logga in för att få tillgång till dina listor på alla enheter!
+    </p>
 
     <button
       onClick={fetchCountries}
       className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
     >
-      Hämta länder
+      Hämta alla länder
     </button>
 
     {loading && <p>Laddar länder...</p>}
