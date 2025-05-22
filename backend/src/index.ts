@@ -2,6 +2,7 @@ import express from "express";
 import { connectDB } from './config/db';
 import countryRoutes from './routes/countries.routes'
 import userRoutes from './routes/user.routes';
+import listRoutes from './routes/list.routes';
 import cors from 'cors';
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/api/countries', countryRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/lists', listRoutes);
 
 app.get("/", (req, res) => {
     res.send("Backend page is live!");

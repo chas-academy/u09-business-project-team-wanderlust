@@ -9,18 +9,6 @@ export const getUserById = async (userId: string) => {
     return await User.findById(userId);
 };
 
-export const addToFavorites = async (userId: string, code: string) => {
-    return await User.findByIdAndUpdate(userId, {
-        $addToSet: { favoriteCountries: code }
-    }, { new: true });
-};
-
-export const addToTravels = async (userId: string, code: string) => {
-    return await User.findByIdAndUpdate(userId, {
-        $addToSet: { travelPlans: code }
-}, { new: true });
-};
-
 export const compareCountries = async (name1: string, name2: string) => {
     const [country1, country2] = await Promise.all([
         getCountryByName(name1),
