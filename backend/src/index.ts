@@ -13,7 +13,7 @@ connectDB();
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    "https://u09-team-wanderlust-frontend.netlify.app/"
+    "https://u09-team-wanderlust-frontend.netlify.app"
   ]
 }));
 
