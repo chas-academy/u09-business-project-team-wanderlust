@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 app.use(cors({
-  origin: 'http://localhost:5173'
+  origin: [
+    'http://localhost:5173',
+    "https://u09-team-wanderlust-frontend.netlify.app/"
+  ]
 }));
 
 app.use(express.json());
