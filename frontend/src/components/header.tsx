@@ -11,14 +11,14 @@ export const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className={styles.header}>
       <nav>
-        <ul className="navList">
-          <li><Link to="/">Hem</Link></li>
-          <li><Link to="/profil">Profil</Link></li>
-          <li><Link to="/compare">Jämför Länder</Link></li>
+        <ul className={styles.navList}>
+          <li><Link className={styles.link} to="/">Hem</Link></li>
+          <li><Link className={styles.link} to="/profil">Profil</Link></li>
+          <li><Link className={styles.link} to="/compare">Jämför Länder</Link></li>
           {!user ? (
-            <li><Link to="/login">Logga in</Link></li>
+            <li><Link className={styles.link} to="/login">Logga in</Link></li>
           ) : (
             <li><button onClick={handleLogout}>Logga ut</button></li>
           )}
