@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { useUser } from "../features/auth/UserContext";
+import { fetchUserListWithDetails } from "../api/listApi";
 
 export const ProfilePage = () => {
   const [name, setName] = useState<string | null>(null)
@@ -19,6 +21,9 @@ export const ProfilePage = () => {
       )}
     </div>
   )
+
+  /* const { user } = useUser();
+  const [] */
 }
 
 
