@@ -7,7 +7,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 // import { store } from './store' // använder inte redux
 
 import HomePage from './pages/homePage'
-import{ ProfilPage }from './pages/profilPage'
+import{ ProfilePage }from './pages/profilePage'
 import CompareCountriesPage from './pages/comparePage'
 import Login from './features/auth/Login'
 import { UserProvider } from "./features/auth/UserContext"
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     errorElement: <h1>error app</h1>,
     children: [
       { path: '', element: <HomePage /> },
-      { path: 'profil', element: <ProfilPage /> },
+      { path: 'profil', element: <ProfilePage /> },
       { path: 'compare', element: <CompareCountriesPage /> },
     ],
   },
