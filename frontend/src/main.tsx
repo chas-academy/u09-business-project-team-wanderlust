@@ -3,34 +3,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import router from './router/router'
 // import { Provider } from 'react-redux'
 // import { store } from './store' // använder inte redux
 
-import HomePage from './pages/homePage'
-import{ ProfilePage }from './pages/profilePage'
-import CompareCountriesPage from './pages/comparePage'
-import Login from './features/auth/Login'
 import { UserProvider } from "./features/auth/UserContext"
 
 import App from './App'
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    errorElement: <h1>error app</h1>,
-    children: [
-      { path: '', element: <HomePage /> },
-      { path: 'profil', element: <ProfilePage /> },
-      { path: 'compare', element: <CompareCountriesPage /> },
-    ],
-  },
-  {
-    path: '/login',
-    element: <Login />,
-    errorElement: <h1>error login</h1>,
-  },
-])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

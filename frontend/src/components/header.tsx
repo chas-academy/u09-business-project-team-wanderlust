@@ -15,7 +15,11 @@ export const Header = () => {
       <nav>
         <ul className={styles.navList}>
           <li><Link className={styles.link} to="/">Hem</Link></li>
-          <li><Link className={styles.link} to="/profil">Profil</Link></li>
+          {user && (
+            <li>
+                <Link className={styles.link} to="/profil">Profil</Link>
+            </li>
+            )}
           <li><Link className={styles.link} to="/compare">Jämför Länder</Link></li>
           {!user ? (
             <li><Link className={styles.link} to="/login">Logga in</Link></li>
