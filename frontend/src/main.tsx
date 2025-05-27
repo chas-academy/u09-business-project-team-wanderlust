@@ -10,6 +10,7 @@ import HomePage from './pages/homePage'
 import{ ProfilPage }from './pages/profilPage'
 import CompareCountriesPage from './pages/comparePage'
 import Login from './features/auth/Login'
+import { UserProvider } from "./features/auth/UserContext"
 
 import App from './App'
 
@@ -33,11 +34,13 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId={import.meta.env.GOOGLE_CLIENT_ID}>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <UserProvider>
         <RouterProvider router={router} />
+      </UserProvider>
     </GoogleOAuthProvider>
   </StrictMode>
-)
+);
 
 /* med redux
 createRoot(document.getElementById('root')!).render(

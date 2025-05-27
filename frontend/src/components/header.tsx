@@ -1,18 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
+import { useUser } from "../features/auth/UserContext";
 
 export const Header = () => {
-    return (
-        <header className={styles.header}>
-            <nav>
-                <ul className={styles.navList}>
-                    <li><Link to="/profil" className={styles.link}>Profil</Link></li>
-                    <li><Link to="/" className={styles.link}>Start sida</Link></li>
-                    <li><Link to="/compare" className={styles.link}>Jämför länder</Link></li>
-                    <li><Link to="/Login" className={styles.link}>Logga in</Link></li>
+    const { user, logout } = useUser();
+    const navigate = useNavigate();
+    const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
-                </ul>
-            </nav>
-        </header>
-    );
+  return (
+    <header className="header">
+      <nav>
+        <ul className="navList">
+          <li><Link to="/">Hem</Link></li>
+          <li><Link to="/profil">Profil</Link></li>
+          <li><Link to="/compare">Jämför Länder</Link></li>
+          {!user ? (
+            <li><Link to="/login">Logga in</Link></li>
+          ) : (
+            <li><button onClick={handleLogout}>Logga ut</button></li>
+          )}
+        </ul>
+      </nav>
+    </header>
+  );
 };
