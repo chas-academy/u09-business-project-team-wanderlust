@@ -9,6 +9,7 @@ export const Header = () => {
                     <li><Link to="/profil" className={styles.link}>Profil</Link></li>
                     <li><Link to="/" className={styles.link}>Start sida</Link></li>
                     <li><Link to="/compare" className={styles.link}>Jämför länder</Link></li>
+                    <li><Link to="/Login" className={styles.link}>Logga in</Link></li>
 
                 </ul>
             </nav>
