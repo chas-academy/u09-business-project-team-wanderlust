@@ -6,3 +6,5 @@ const router = express.Router();
 router.get('/profile', ensureAuthenticated, (req, res) => {
     res.json({ user: req.user });
 });
+
+export default router;
