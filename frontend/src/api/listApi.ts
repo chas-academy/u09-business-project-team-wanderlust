@@ -6,3 +6,20 @@ export const fetchUserListWithDetails = async (userId: string, type: "favorites"
     const response = await axios.get(`${API_URL}/lists/details/${userId}/${type}`);
     return response.data;
 };
+
+export const addCountryToList = async (
+    userId: string,
+    type: "favorites" | "travels",
+    code: string
+) => {
+    const response = await axios.put(
+        `${API_URL}/add/${userId}/${type}`,
+        { code }
+    );
+    return response.data;
+}
+
+export const removeCountryFromList = async (userId: string, type: "favorites" | "travels", code: string) => {
+    const response = await axios.put(`${API_URL}/remove/${userId}/${type}`, { code });
+    return response.data;
+};
