@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { connectDB } from './config/db';
 import countryRoutes from './routes/countries.routes';
 import userRoutes from './routes/user.routes';
@@ -29,11 +29,16 @@ app.use(express.json());
 app.use(expressSession({ 
   secret: 'hemligt', 
   resave: false, 
-  saveUninitialized: true,
-  cookie: { secure: false } // sätt true om du kör HTTPS
+  saveUninitialized: false,
+  //cookie: { secure: false } // sätt true om du kör HTTPS
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Root route
+app.get("/", (req, res) => {
+    res.send("Backend page is live!");
+});
 
 // Routes
 app.use('/api/countries', countryRoutes);
@@ -42,20 +47,26 @@ app.use('/api/lists', listRoutes);
 app.use('/api/protected', protectedRoutes);
 
 // Auth routes
-app.get('/api/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
+app.get("/auth/google", passport.authenticate("google", {
+    scope: ["profile", "email"],
+}));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: "http://localhost:5173",
+    successRedirect: "http://localhost:5173/login"
+  })
 );
 
-app.get('/api/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => {
-    // Skicka vidare till frontend efter lyckad inloggning
-    res.redirect('http://localhost:5173/dashboard'); // ändra till din frontend-URL
-  });
+app.get("/auth/logout", (req: Request, res: Response, next) => {
+    req.logout(err => {
+        if (err) return next(err);
+        res.sendStatus(200);
+    });
+});
 
-// Root route
-app.get("/", (req, res) => {
-    res.send("Backend page is live!");
+app.get("/auth/user", (req: Request, res: Response) => {
+    res.json(req.user || null);
 });
 
 // Starta servern - efter alla middleware och routes är registrerade

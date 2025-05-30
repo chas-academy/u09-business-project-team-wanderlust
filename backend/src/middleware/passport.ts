@@ -1,14 +1,48 @@
-import passport from 'passport';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import passport, { Profile } from 'passport';
+import { Strategy as GoogleStrategy, VerifyCallback } from 'passport-google-oauth20';
+import userModel from '../models/user.model';
+import dotenv from 'dotenv';
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    callbackURL: "http://localhost:3000/api/auth/google/callback",
-},
-(accessToken, refreshToken, profile, done) => {
-    return done(null, profile);
-}));
+dotenv.config()
 
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((obj: any, done) => done(null, obj));
+const clientID = process.env.GOOGLE_CLIENT_ID!;
+const clientSecret = process.env.GOOGLE_CLIENT_SECRET!;
+
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID,
+            clientSecret,
+            callbackURL: "http://localhost:3000/auth/google/callback",
+        },
+        async (accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) => {
+            try {
+                let user = await userModel.findOne({ googleId: profile.id })
+                if (!user) {
+                    user = await userModel.create({
+                        googleId: profile.id,
+                        username: profile.displayName,
+                        email: profile.emails?.[0]?.value,
+                    });
+                }
+                console.log(user);
+                return done(null, user);
+            } catch (err) {
+                return done(err, false);
+            }
+        }
+    )
+);
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(async function (id, done) {
+    try {
+        const user = await userModel.findById(id);
+        done(null, user);
+    } catch (err) {
+        done(err, null);
+    }
+});
