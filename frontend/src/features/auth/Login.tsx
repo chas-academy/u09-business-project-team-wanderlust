@@ -29,58 +29,12 @@ const Login = () => {
     window.open("http://localhost:3000/auth/google", "_self")
   }
 
-  const logout = async () => {
-    await fetch("http://localhost:3000/auth/logout", {
-      credentials: "include"
-    });
-    setUser(null);
-    window.location.href = "/";
-  };
-
   return (
     <div className="login">
-      <h1>Logga in med Google</h1>
-      {user ? (
-        <div>
-          <p>Welcome, {user.username}</p>
-          {/*<img src={user.photos[0].value} alt="profile picture" width="100"/>*/}
-          <br />
-          <button onClick={logout}>Logout</button>
-        </div>
-      ) : (
+      <h1>Logga in</h1>
         <button onClick={signIn}>Login with Google</button>
-      )}
     </div>
   )
-
-/*   return (
-    <div className="login">
-      <h1>Logga in</h1>
-      <GoogleLogin
-        onSuccess={(credentialResponse) => {
-          const token = credentialResponse.credential;
-          if (token) {
-            const user = jwtDecode<User>(token);
-            //Spara användarnamn i localStorage
-            localStorage.setItem('userName', user.name);
-
-            // Anropa context i login
-            login({
-              name: user.name,
-              email: user.email,
-              picture: user.picture,
-            });
-
-            // Sedan navigeras man till profilsidan
-            navigate("/profil");
-          }
-        }}
-        onError={() => {
-          console.log("Misslyckades att logga in");
-        }}
-      />
-    </div>
-  ); */
 };
 
 export default Login;
