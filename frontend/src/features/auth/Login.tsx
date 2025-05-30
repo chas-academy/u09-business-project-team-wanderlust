@@ -34,7 +34,7 @@ const Login = () => {
       credentials: "include"
     });
     setUser(null);
-    console.log("Logout attempted");
+    window.location.href = "/";
   };
 
   return (
