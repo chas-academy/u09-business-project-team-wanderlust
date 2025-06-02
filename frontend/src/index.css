@@ -24,15 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
@@ -52,29 +44,6 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Ger flaggcontainern en tydligare ram och markerar bakgrunden */
-.flag-container {
-  width: 12rem; /* 48 * 0.25rem */
-  height: 8rem; /* 32 * 0.25rem */
-  background-color: #d1d5db; /* Tailwind bg-gray-300 */
-  border: 1px solid #9ca3af; /* Tailwind border-gray-400 */
-  border-radius: 0.375rem; /* Tailwind rounded */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.flag-container img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.country-list {
-  list-style-type: none;
-  padding-left: 10;
 }
 
 @media (prefers-color-scheme: light) {

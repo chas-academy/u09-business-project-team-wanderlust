@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import type { Country } from "../types/Country";
+import "./comparePageStyles.css";
 
 type CompareResult = {
     countries: [string, string];
+    flags: [string, string];
     region: [string, string];
     population: [number, number];
     currencies: [string, string];
@@ -22,140 +24,149 @@ const CompareCountriesPage = () => {
     }, []);
 
     const fetchCountries = async () => {
-    try {
-        setLoading(true);
-        const response = await fetch('http://localhost:3000/api/countries');
-        if (!response.ok) throw new Error('Kunde inte hämta länder');
-        const data: Country[] = await response.json();
-        setCountries(data.sort((a, b) => a.name.localeCompare(b.name)));
+        try {
+            setLoading(true);
+            const response = await fetch('http://localhost:3000/api/countries');
+            if (!response.ok) throw new Error('Kunde inte hämta länder');
+            const data: Country[] = await response.json();
+            setCountries(data.sort((a, b) => a.name.localeCompare(b.name)));
         } catch (err: any) {
-        setError(err.message || 'Ett fel inträffade');
+            setError(err.message || 'Ett fel inträffade');
         } finally {
-        setLoading(false);
+            setLoading(false);
         }
     };
 
     const compareCountries = async () => {
         if (!selected1 || !selected2) {
             setError('Välj två länder att jämföra');
-            return;
-        }
-        
-        if (selected1 === selected2) {
-            setError('Välj två olika länder');
+            setCompareResult(null);
             return;
         }
 
-    try {
-        setError(null);
-        setCompareResult(null);
-        setCompareLoading(true);
-        const response = await fetch(
-            `http://localhost:3000/api/countries/compare/${selected1}/${selected2}`
-        );
-        if (!response.ok) {
-            const errData = await response.json();
-            throw new Error(errData.error || 'Fel vid jämförelse');
+        if (selected1 === selected2) {
+            setError('Välj två olika länder');
+            setCompareResult(null);
+            return;
         }
-        const data: CompareResult = await response.json();
-        setCompareResult(data);
+
+        try {
+            setError(null);
+            setCompareResult(null);
+            setCompareLoading(true);
+            const response = await fetch(
+                `http://localhost:3000/api/countries/compare/${selected1}/${selected2}`
+            );
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error || 'Fel vid jämförelse');
+            }
+            const data: CompareResult = await response.json();
+            setCompareResult(data);
         } catch (err: any) {
-        setError(err.message || 'Något gick fel vid jämförelsen');
+            setError(err.message || 'Något gick fel vid jämförelsen');
+            setCompareResult(null);
         } finally {
-        setCompareLoading(false);
+            setCompareLoading(false);
         }
     };
 
     return (
-        <div className="p-6 max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Jämför två länder</h1>
+        <div className="page-container">
+            <h1 className="page-title">Jämför två länder</h1>
 
-        {loading && <p>Laddar länder...</p>}
-        {error && <p className="text-red-600">{error}</p>}
+            {loading && <p>Laddar länder...</p>}
 
-        {!loading && !error && (
-            <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-            <div>
-                <label htmlFor="country1" className="block mb-1 font-semibold">
-                Land 1
-                </label>
-                <select
-                id="country1"
-                value={selected1}
-                onChange={(e) => setSelected1(e.target.value)}
-                className="w-full border rounded px-2 py-1"
-                >
-                <option value="">Välj land</option>
-                {countries.map((c) => (
-                    <option key={c.code} value={c.name}>
-                    {c.name}
-                    </option>
-                ))}
-                </select>
-            </div>
+            {error && <p className="error">{error}</p>}
 
-            <div>
-                <label htmlFor="country2" className="block mb-1 font-semibold">
-                Land 2
-                </label>
-                <select
-                id="country2"
-                value={selected2}
-                onChange={(e) => setSelected2(e.target.value)}
-                className="w-full border rounded px-2 py-1"
-                >
-                <option value="">Välj land</option>
-                {countries.map((c) => (
-                    <option key={c.code} value={c.name}>
-                    {c.name}
-                    </option>
-                ))}
-                </select>
-            </div>
+            {!loading && (
+                <div className="form-grid">
+                    <div className="form-group">
+                        <label htmlFor="country1">Land 1</label>
+                        <select
+                            id="country1"
+                            value={selected1}
+                            onChange={(e) => {
+                                setSelected1(e.target.value);
+                                setError(null); // Rensa felmeddelande vid nytt val
+                            }}
+                        >
+                            <option value="">Välj land</option>
+                            {countries.map((c) => (
+                                <option key={c.code} value={c.name}>
+                                    {c.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
-            <div>
-                <button
-                onClick={compareCountries}
-                className="bg-blue-600 text-white px-4 py-2 rounded w-full"
-                disabled={compareLoading}
-                >
-                {compareLoading ? 'Jämför...' : 'Jämför'}
-                </button>
-            </div>
-            </div>
-        )}
+                    <div className="form-group">
+                        <label htmlFor="country2">Land 2</label>
+                        <select
+                            id="country2"
+                            value={selected2}
+                            onChange={(e) => {
+                                setSelected2(e.target.value);
+                                setError(null); // Rensa felmeddelande vid nytt val
+                            }}
+                        >
+                            <option value="">Välj land</option>
+                            {countries.map((c) => (
+                                <option key={c.code} value={c.name}>
+                                    {c.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
-        {compareResult && (
-            <div className="border rounded p-4 bg-gray-50 shadow">
-            <h2 className="text-2xl font-semibold mb-4">Resultat</h2>
-            <table className="w-full text-left">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>{compareResult.countries[0]}</th>
-                    <th>{compareResult.countries[1]}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td className="font-semibold">Region</td>
-                    <td>{compareResult.region[0]}</td>
-                    <td>{compareResult.region[1]}</td>
-                </tr>
-                <tr>
-                    <td className="font-semibold">Befolkning</td>
-                    <td>{compareResult.population[0].toLocaleString()}</td>
-                    <td>{compareResult.population[1].toLocaleString()}</td>
-                </tr>
-                <tr>
-                    <td className="font-semibold">Valuta</td>
-                    <td>{compareResult.currencies[0]}</td>
-                    <td>{compareResult.currencies[1]}</td>
-                </tr>
-                </tbody>
-            </table>
-            </div>
-        )}
+                    <div className="form-group">
+                        <button onClick={compareCountries} disabled={compareLoading}>
+                            {compareLoading ? 'Jämför...' : 'Jämför'}
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {compareResult && (
+                <div className="result-box">
+                    <h2>Resultat</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{compareResult.countries[0]}</th>
+                                <th>{compareResult.countries[1]}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <img src={compareResult.flags[0]} alt="Flagga 1" width="50" />
+                                </td>
+                                <td>
+                                    <img src={compareResult.flags[1]} alt="Flagga 2" width="50" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Region</td>
+                                <td>{compareResult.region[0]}</td>
+                                <td>{compareResult.region[1]}</td>
+                            </tr>
+                            <tr>
+                                <td>Befolkning</td>
+                                <td>{compareResult.population[0].toLocaleString()}</td>
+                                <td>{compareResult.population[1].toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Valuta</td>
+                                <td>{compareResult.currencies[0]}</td>
+                                <td>{compareResult.currencies[1]}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 };
