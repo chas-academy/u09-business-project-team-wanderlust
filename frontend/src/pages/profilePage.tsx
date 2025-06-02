@@ -30,11 +30,14 @@ export const ProfilePage = () => {
 
       try {
         setLoading(true);
+        console.log("Använder userId i fetch:", user?.id);
         const [countries, favData, travelData] = await Promise.all([
           fetchAllCountries(),
           fetchUserListWithDetails(user.id, "favorites"),
           fetchUserListWithDetails(user.id, "travels"),
         ]);
+
+        console.log("fetchAllCountries() result:", countries);
 
         setAllCountries(countries);
         setFavorites(favData.countries);
