@@ -1,0 +1,146 @@
+.profile-wrapper {
+    padding: 1rem;
+}
+
+.profile-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.welcome-text {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+}
+
+.loading-text {
+    margin-top: 1rem ;
+}
+
+.error-text {
+    margin-top: 1rem;
+    color: #ef4444;
+}
+
+.add-country-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.section-title {
+    padding-left: 20px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.lists-wrapper {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    flex-wrap: wrap; /* gör det responsivt på mindre skärmar */
+}
+
+.section {
+    flex: 1;
+    min-width: 300px;
+}
+
+
+.form-controls {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+.form-select {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+.form-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+}
+
+.country-list {
+    margin-top: 1.5rem;
+}
+
+.empty-text {
+    color: #6b7280;
+}
+
+.country-ul {
+    list-style-type: disc;
+    padding-left: 1rem;
+}
+
+.country-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.country-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.country-flag {
+    width: 2rem;
+    height: 1.25rem;
+    background-color: #e5e7eb;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.125rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    aspect-ratio: 4 / 3;
+}
+
+.flag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.country-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.btn-remove {
+    color: #ef4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-remove:hover {
+    color: #b91c1c;
+}
+
+.btn-move {
+    color: #3b82f6;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-move:hover {
+    color: #1d4ed8;
+}
