@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addCountry, removeCountry, getUserListWithDetails, getUserListData } from "../services/list.service";
+import { addCountry, removeCountry, getUserListWithDetails, getUserListData , moveCountryBetweenLists} from "../services/list.service";
 
 
 export const addToList = async (req: Request, res: Response): Promise<any> => {
@@ -61,4 +61,23 @@ export const getUserListController = async (req: Request, res: Response): Promis
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
+};
+
+export const moveCountry = async (req: Request, res: Response): Promise<any> => {
+  const { userId } = req.params;
+  const { fromType, toType, code } = req.body;
+
+  if (!code || !fromType || !toType) {
+    return res.status(400).json({ error: "fromType, toType och code krävs." });
+  }
+
+  try {
+    const result = await moveCountryBetweenLists(userId, fromType, toType, code);
+    res.status(200).json({
+      message: `Landet ${code} flyttades från ${fromType} till ${toType}.`,
+      list: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };

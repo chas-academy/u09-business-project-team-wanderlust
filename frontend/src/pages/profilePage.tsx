@@ -4,6 +4,7 @@ import {
   fetchUserListWithDetails,
   removeCountryFromList,
   addCountryToList,
+  moveCountryBetweenLists,
 } from "../api/listApi";
 import { fetchAllCountries } from "../api/countryApi";
 import type { Country } from "../types/Country";
@@ -82,6 +83,43 @@ export const ProfilePage = () => {
     }
   };
 
+const handleMove = async (
+  fromType: "favorites" | "travels",
+  toType: "favorites" | "travels",
+  code: string
+) => {
+  if (!user?.id) return;
+  try {
+    const result = await moveCountryBetweenLists(user.id, fromType, toType, code);
+    console.log("Flytt-resultat:", result);
+
+    // Ta bort landet från "from"-listan
+    if (fromType === "favorites") {
+      setFavorites((prev) => prev.filter((c) => c.code !== code));
+    } else {
+      setTravels((prev) => prev.filter((c) => c.code !== code));
+    }
+
+    // Lägg till landet i "to"-listan (om det inte redan finns)
+    if (toType === "favorites") {
+      setFavorites((prev) =>
+        prev.some((c) => c.code === code)
+          ? prev
+          : [...prev, allCountries.find((c) => c.code === code)!]
+      );
+    } else {
+      setTravels((prev) =>
+        prev.some((c) => c.code === code)
+          ? prev
+          : [...prev, allCountries.find((c) => c.code === code)!]
+      );
+    }
+  } catch (err) {
+    alert("Kunde inte flytta landet.");
+    console.error(err);
+  }
+};
+
   const renderCountryList = (
     title: string,
     countries: Country[],
@@ -93,20 +131,34 @@ export const ProfilePage = () => {
         <p className="text-gray-500">Inga länder tillagda ännu.</p>
       ) : (
         <ul className="list-disc list-inside">
-          {countries.map((country) => (
-            <li key={country.code} className="flex items-center justify-between">
-              <span>
-                {country.name}
-                <img src={country.flag} alt={country.name} className="inline-block w-5 ml-2" />
-              </span>
+        {countries.map((country) => (
+          <li key={country.code} className="flex items-center justify-between gap-4">
+            <span>
+              {country.name}
+              <img src={country.flag} alt={country.name} className="inline-block w-5 ml-2" />
+            </span>
+            <div className="flex gap-2">
               <button
                 onClick={() => handleRemove(listType, country.code)}
-                className="text-red-500 hover:text-red-700 ml-4"
+                className="text-red-500 hover:text-red-700"
               >
                 Ta bort
               </button>
-            </li>
-          ))}
+              <button
+                onClick={() =>
+                  handleMove(
+                    listType,
+                    listType === "favorites" ? "travels" : "favorites",
+                    country.code
+                  )
+                }
+                className="text-blue-500 hover:text-blue-700"
+              >
+                Flytta till {listType === "favorites" ? "Reseplaner" : "Favoriter"}
+              </button>
+            </div>
+          </li>
+        ))}
         </ul>
       )}
     </div>

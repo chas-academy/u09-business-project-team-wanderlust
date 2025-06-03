@@ -77,3 +77,25 @@ export const getUserListWithDetails = async (userId: string, type: string) => {
         countries: detailedItems,
     };
 };
+
+export const moveCountryBetweenLists = async (
+  userId: string,
+  fromType: "favorites" | "travels",
+  toType: "favorites" | "travels",
+  code: string
+) => {
+  // 1. Ta bort från den gamla listan
+  await List.findOneAndUpdate(
+    { user: userId, type: fromType },
+    { $pull: { countries: code } }
+  );
+
+  // 2. Lägg till i den nya listan
+  const updated = await List.findOneAndUpdate(
+    { user: userId, type: toType },
+    { $addToSet: { countries: code } },
+    { new: true, upsert: true }
+  );
+
+  return updated;
+};

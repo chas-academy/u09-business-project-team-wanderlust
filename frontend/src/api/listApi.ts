@@ -25,3 +25,16 @@ export const removeCountryFromList = async (userId: string, type: "favorites" | 
     return response.data;
 };
 
+export const moveCountryBetweenLists = async (
+  userId: string,
+  fromType: "favorites" | "travels",
+  toType: "favorites" | "travels",
+  code: string
+) => {
+  const response = await axios.post(`${API_URL}/lists/${userId}/move`, {
+    fromType,
+    toType,
+    code,
+  });
+  return response.data;
+};
