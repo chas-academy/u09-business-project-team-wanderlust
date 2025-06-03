@@ -120,24 +120,36 @@ const handleMove = async (
   }
 };
 
-  const renderCountryList = (
-    title: string,
-    countries: Country[],
-    listType: "favorites" | "travels"
-  ) => (
-    <div className="mt-6">
-      <h2 className="text-xl font-semibold mb-2">{title}</h2>
-      {countries.length === 0 ? (
-        <p className="text-gray-500">Inga länder tillagda ännu.</p>
-      ) : (
-        <ul className="list-disc list-inside">
+ const renderCountryList = (
+  title: string,
+  countries: Country[],
+  listType: "favorites" | "travels"
+) => (
+  <div className="mt-6">
+    <h2 className="text-xl font-semibold mb-2">{title}</h2>
+    {countries.length === 0 ? (
+      <p className="text-gray-500">Inga länder tillagda ännu.</p>
+    ) : (
+      <ul className="list-disc list-inside">
         {countries.map((country) => (
-          <li key={country.code} className="flex items-center justify-between gap-4">
-            <span>
+          <li
+            key={country.code}
+            className="flex items-center justify-between gap-4 min-w-0"
+          >
+            <span className="flex items-center gap-2 min-w-0">
               {country.name}
-              <img src={country.flag} alt={country.name} className="inline-block w-5 ml-2" />
+              <div
+                className="w-8 h-5 bg-gray-200 inline-flex items-center justify-center rounded-sm overflow-hidden flex-shrink-0"
+                style={{ aspectRatio: "4 / 3" }}
+              >
+                <img
+                  src={country.flag}
+                  alt={country.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </span>
-            <div className="flex gap-2">
+            <div className="flex gap-2 shrink-0">
               <button
                 onClick={() => handleRemove(listType, country.code)}
                 className="text-red-500 hover:text-red-700"
@@ -159,10 +171,10 @@ const handleMove = async (
             </div>
           </li>
         ))}
-        </ul>
-      )}
-    </div>
-  );
+      </ul>
+    )}
+  </div>
+);
 
   return (
     <div className="p-4">
