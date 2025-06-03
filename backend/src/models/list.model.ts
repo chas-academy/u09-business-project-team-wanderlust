@@ -13,7 +13,7 @@ export interface IList extends Document {
 const ListSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     type: { type: String, required: true },
-    countries: [{ type: [String], default: [] }]
+    countries: { type: [String], default: [] }
 }, { collection: 'Listor' });
 
 export default mongoose.model<IList>('List', ListSchema);

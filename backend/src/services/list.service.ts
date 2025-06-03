@@ -12,15 +12,29 @@ export const addCountry = async (userId: string, type: string, code: string) => 
         { new: true, upsert: true }
     );
 };
-
+/*
 export const removeCountry = async (userId: string, type: string, code: string) => {
     return await List.findOneAndUpdate(
         { user: userId, type },
         { $pull: { countries: code } },
         { new: true }
     );
-};
+}; */
 
+export const removeCountry = async (userId: string, type: string, code: string) => {
+    const result = await List.findOneAndUpdate(
+    { user: userId, type },
+    { $pull: { countries: code } },
+    { new: true }
+);
+
+if (!result) {
+    throw new Error("List not found or country not in list");
+}
+
+return result;
+
+}
 export const getUserListData = async (userId: string, type: string) => {
     const list = await List.findOne({ user: userId, type });
 
@@ -43,7 +57,6 @@ export const getUserListWithDetails = async (userId: string, type: string) => {
             countries: [],
         });
     }
-
 
     const detailedItems = await Promise.all(
         list.countries.map(async (code: string) => {
