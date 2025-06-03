@@ -32,8 +32,18 @@ export const getUserListData = async (userId: string, type: string) => {
 };
 
 export const getUserListWithDetails = async (userId: string, type: string) => {
-    const list = await List.findOne({ user: userId, type: type });
-    if (!list) return null;
+   /* const list = await List.findOne({ user: userId, type: type });
+    if (!list) return null; */
+    let list = await List.findOne({ user: userId, type });
+
+    if (!list) {
+        list = await List.create({
+            user: userId,
+            type,
+            countries: [],
+        });
+    }
+
 
     const detailedItems = await Promise.all(
         list.countries.map(async (code: string) => {
