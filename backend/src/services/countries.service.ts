@@ -3,12 +3,18 @@ import fetch from 'node-fetch';
 const BASE_API_URL = 'https://restcountries.com/v3.1';
 
 export const getAllCountries = async () => {
-    const response = await fetch(`${BASE_API_URL}/all`);
+    // Lägg till vilka fält du vill ha, t.ex. namn, flagga, population etc.
+    const fields = ['name', 'flags'].join(',');
+
+    const response = await fetch(`${BASE_API_URL}/all?fields=${fields}`);
     if (!response.ok) {
+        const text = await response.text();
+        console.error('Fel från countries API:', text);
         throw new Error('Hämtning av länder misslyckades');
     }
     return await response.json();
 };
+
 
 export const getCountryByName = async (name: string) => {
     const response = await fetch(`${BASE_API_URL}/name/${name}`);

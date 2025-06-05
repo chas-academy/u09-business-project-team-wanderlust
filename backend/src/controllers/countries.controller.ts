@@ -2,17 +2,19 @@ import { Request, Response } from 'express';
 import { getAllCountries, getCountryByName, compareCountries } from '../services/countries.service';
 
 export const getCountries = async (req: Request, res: Response): Promise<any> => {
-    try {
-        const countries = await getAllCountries();
-        const filtered = countries.map((c: any) => ({
-        name: c.name.common,
-        code: c.cca2,
-        flag: c.flags.svg,
-        }));
-        res.status(200).json(filtered);
-    } catch (error: any) {
-        res.status(500).json({ error: error.message || 'Något gick fel vid hämtning av länder' });
-    }
+  try {
+    const countries = await getAllCountries();
+    console.log('Countries fetched:', countries.length);  // kolla att det finns data
+    const filtered = (countries as any[]).map((c: any) => ({
+      name: c.name.common,
+      code: c.cca2,
+      flag: c.flags.svg,
+    }));
+    res.status(200).json(filtered);
+  } catch (error: any) {
+    console.error('Error fetching countries:', error);
+    res.status(500).json({ error: error.message || 'Något gick fel vid hämtning av länder' });
+  }
 };
 
 export const getCountry = async (req: Request, res: Response): Promise<any> => {
