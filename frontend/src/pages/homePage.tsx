@@ -141,15 +141,20 @@ const HomePage = () => {
         >
           <ul className="country-list">
             {countries.map((country) => (
-              <li key={country.code}>
-                <h2 style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>{country.name}</h2>
-                <p style={{ color: '#6b7280', fontSize: '0.75rem', marginBottom: '0.5rem' }}>{country.code}</p>
+              <li key={country.code || country.name}>
+                <h2 style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>
+                  {country.name}
+                </h2>
+                <p style={{ color: '#6b7280', fontSize: '0.75rem', marginBottom: '0.5rem' }}>
+                  {country.code}
+                </p>
                 <div className="flag-container">
                   <img src={country.flag} alt={country.name} />
                 </div>
               </li>
             ))}
           </ul>
+
         </div>
       )}
     </div>
