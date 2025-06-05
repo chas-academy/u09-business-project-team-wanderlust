@@ -182,7 +182,7 @@ export const ProfilePage = () => {
                 className="select"
               >
                 {allCountries.map((c) => (
-                  <option key={c.code} value={c.code}>
+                  <option key={c.code || c.name} value={c.code}>
                     {c.name}
                   </option>
                 ))}
