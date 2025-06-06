@@ -37,6 +37,8 @@ export const getCountryByName = async (name: string) => {
 };
 
 export const getCountryByCode = async (code: string) => {
+    console.log("Mottagen kod:", code);
+    
     const response = await fetch(`${BASE_API_URL}/alpha/${code}`);
     if (!response.ok) {
         throw new Error(`Kan inte hämta land med kod: ${code}`);

@@ -38,6 +38,8 @@ export const ProfilePage = () => {
           fetchUserListWithDetails(user.id, "travels"),
         ]);
 
+        console.log("Alla länder:", countries);
+
         setAllCountries(countries);
         setFavorites(favData.countries);
         setTravels(travelData.countries);
@@ -71,6 +73,8 @@ export const ProfilePage = () => {
   const handleAdd = async () => {
     if (!user?.id) return;
     try {
+      console.log("Skickar kod:", selectedCode); 
+
       await addCountryToList(user.id, selectedList, selectedCode);
       const country = allCountries.find((c) => c.code === selectedCode);
       if (!country) return;
