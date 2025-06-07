@@ -1,15 +1,7 @@
-/* import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode }from "jwt-decode";
-import { useUser } from "./UserContext";
-import type { User } from "./UserContext";
-import { useNavigate } from "react-router-dom"; */
-
 import { useEffect, useState } from "react";
 
 
 const Login = () => {
-  // const { login } = useUser();
-  // const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
 
   const fetchUser = async () => {
