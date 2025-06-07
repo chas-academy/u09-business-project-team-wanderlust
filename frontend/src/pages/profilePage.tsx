@@ -104,8 +104,6 @@ const handleAdd = async () => {
     if (!user?.id) return;
     try {
       await moveCountryBetweenLists(user.id, fromType, toType, code);
-      
-      window.location.reload();
 
       const country = allCountries.find((c) => c.code === code);
       if (!country) return;
