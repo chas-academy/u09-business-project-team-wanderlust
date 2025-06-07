@@ -28,7 +28,7 @@ const CompareCountriesPage = () => {
     const fetchCountries = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${API_BASE_URL}/api/countries`);
+            const response = await fetch(`${API_BASE_URL}/countries`);
             if (!response.ok) throw new Error('Kunde inte hämta länder');
             const data: Country[] = await response.json();
             setCountries(data.sort((a, b) => a.name.localeCompare(b.name)));
@@ -57,7 +57,7 @@ const CompareCountriesPage = () => {
             setCompareResult(null);
             setCompareLoading(true);
             const response = await fetch(
-                `${API_BASE_URL}/api/countries/compare/${selected1}/${selected2}`
+                `${API_BASE_URL}/countries/compare/${selected1}/${selected2}`
             );
             if (!response.ok) {
                 const errData = await response.json();
