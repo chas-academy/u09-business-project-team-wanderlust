@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 const Login = () => {
-  // const { login } = useUser();
-  // const navigate = useNavigate();
   const [ setUser ] = useState<any>(null);
 
   const fetchUser = async () => {
-    const res = await fetch("http://localhost:3000/auth/user", {
+    const res = await fetch(`${API_BASE_URL}/auth/user`, {
       credentials: "include"
     });
 
@@ -20,7 +19,7 @@ const Login = () => {
   }, []);
 
   const signIn = () => {
-    window.open("http://localhost:3000/auth/google", "_self")
+    window.open(`${API_BASE_URL}/auth/google`, "_self")
   }
 
   return (

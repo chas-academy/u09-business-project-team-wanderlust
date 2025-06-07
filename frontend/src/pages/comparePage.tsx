@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { Country } from "../types/Country";
 import "./comparePageStyles.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
 type CompareResult = {
     countries: [string, string];
     flags: [string, string];
@@ -26,7 +28,7 @@ const CompareCountriesPage = () => {
     const fetchCountries = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:3000/api/countries');
+            const response = await fetch(`${API_BASE_URL}/api/countries`);
             if (!response.ok) throw new Error('Kunde inte hämta länder');
             const data: Country[] = await response.json();
             setCountries(data.sort((a, b) => a.name.localeCompare(b.name)));
@@ -55,7 +57,7 @@ const CompareCountriesPage = () => {
             setCompareResult(null);
             setCompareLoading(true);
             const response = await fetch(
-                `http://localhost:3000/api/countries/compare/${selected1}/${selected2}`
+                `${API_BASE_URL}/api/countries/compare/${selected1}/${selected2}`
             );
             if (!response.ok) {
                 const errData = await response.json();

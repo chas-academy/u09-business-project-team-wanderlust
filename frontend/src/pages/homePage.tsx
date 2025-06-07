@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import type { Country } from '../types/Country';
 import './homePageStyles.css';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
 const HomePage = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(false);
@@ -19,7 +21,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('http://localhost:3000/api/countries');
+      const response = await fetch(`${API_BASE_URL}/api/countries`);
       if (!response.ok) throw new Error("Kunde inte hämta länder");
       const data = await response.json();
 
@@ -42,7 +44,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       setSearchError(null);
-      const response = await fetch(`http://localhost:3000/api/countries/${name}`);
+      const response = await fetch(`${API_BASE_URL}/api/countries/${name}`);
       if (!response.ok) throw new Error("Kunde inte hitta landet");
 
       const data = await response.json();

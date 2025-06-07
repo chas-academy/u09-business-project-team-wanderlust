@@ -1,14 +1,14 @@
 import axios from "axios";
 import type { Country } from "../types/Country";
 
-const API_URL = "http://localhost:3000/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 export const fetchUserListWithDetails = async (
   userId: string,
   type: "favorites" | "travels"
 ): Promise<{ userId: string; type: string; countries: Country[] }> => {
   const response = await axios.get<{ userId: string; type: string; countries: Country[] }>(
-    `${API_URL}/lists/details/${userId}/${type}`
+    `${API_BASE_URL}/lists/details/${userId}/${type}`
   );
   return response.data;
 };
@@ -18,7 +18,7 @@ export const addCountryToList = async (
   type: "favorites" | "travels",
   code: string
 ): Promise<any> => {
-  const response = await axios.post(`${API_URL}/lists/${userId}/${type}`, { code });
+  const response = await axios.post(`${API_BASE_URL}/lists/${userId}/${type}`, { code });
   return response.data;
 };
 
@@ -28,7 +28,7 @@ export const removeCountryFromList = async (
   code: string
 ): Promise<any> => {
   const response = await axios.delete(
-    `${API_URL}/lists/${userId}/${type}`, 
+    `${API_BASE_URL}/lists/${userId}/${type}`, 
     { data: { code } } as any
   );
   return response.data;
@@ -40,7 +40,7 @@ export const moveCountryBetweenLists = async (
   toType: "favorites" | "travels",
   code: string
 ): Promise<any> => {
-  const response = await axios.post(`${API_URL}/lists/${userId}/move`, {
+  const response = await axios.post(`${API_BASE_URL}/lists/${userId}/move`, {
     fromType,
     toType,
     code,

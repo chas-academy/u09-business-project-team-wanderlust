@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 export interface User {
   id: string;
@@ -24,7 +25,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (user: User) => setUser(user);
   const logout = async() => {
-    await axios.get("http://localhost:3000/auth/logout", {
+    await axios.get(`${API_BASE_URL}/auth/logout`, {
       withCredentials: true
     })
     setUser(null)
@@ -37,7 +38,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchUser = async() => {
       if (user) return; 
-      const res = await axios.get<UserResponse>(`http://localhost:3000/auth/user`, {
+      const res = await axios.get<UserResponse>(`${API_BASE_URL}/auth/user`, {
         withCredentials: true
       });
 
