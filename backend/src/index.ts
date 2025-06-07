@@ -10,6 +10,9 @@ import passport from "passport";
 import './middleware/passport';
 import dotenv from 'dotenv';
 
+import authRoutes from "./routes/auth.routes";
+
+
 dotenv.config();
 
 const app = express();
@@ -50,7 +53,8 @@ app.use('/api/countries', countryRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/lists', listRoutes);
 app.use('/api/protected', protectedRoutes);
-
+app.use("/api/auth", authRoutes);
+/*
 // Auth routes
 app.get("/auth/google", passport.authenticate("google", {
     scope: ["profile", "email"],
@@ -74,7 +78,7 @@ app.get("/auth/logout", (req: Request, res: Response, next) => {
 
 app.get("/auth/user", (req: Request, res: Response) => {
     res.json(req.user || null);
-});
+});*/
 
 // Starta servern - efter alla middleware och routes är registrerade
 app.listen(PORT, () => {
