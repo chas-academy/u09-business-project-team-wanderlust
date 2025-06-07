@@ -32,12 +32,11 @@ export const ProfilePage = () => {
 
       try {
         setLoading(true);
-        const [countries, favData, travelData] = await Promise.all([
-          fetchAllCountries(),
-          fetchUserListWithDetails(user.id, "favorites"),
-          fetchUserListWithDetails(user.id, "travels"),
-        ]);
 
+        const countries = await fetchAllCountries() as Country[];
+        const favData = await fetchUserListWithDetails(user.id, "favorites");
+        const travelData = await fetchUserListWithDetails(user.id, "travels");
+        console.log("Alla länder från API:", countries.slice(0, 10));
         console.log("Alla länder:", countries);
 
         setAllCountries(countries);
@@ -69,26 +68,33 @@ export const ProfilePage = () => {
       console.error(err);
     }
   };
+console.log("Skickar landkod till backend:", selectedCode);
 
-  const handleAdd = async () => {
-    if (!user?.id) return;
-    try {
-      console.log("Skickar kod:", selectedCode); 
+const handleAdd = async () => {
+  if (!user?.id) return;
 
-      await addCountryToList(user.id, selectedList, selectedCode);
-      const country = allCountries.find((c) => c.code === selectedCode);
-      if (!country) return;
+  const country = allCountries.find(c => c.code === selectedCode);
+  if (!country) {
+    alert("Landet kunde inte hittas.");
+    return;
+  }
 
-      if (selectedList === "favorites") {
-        setFavorites((prev) => prev.some((c) => c.code === selectedCode) ? prev : [...prev, country]);
-      } else {
-        setTravels((prev) => prev.some((c) => c.code === selectedCode) ? prev : [...prev, country]);
-      }
-    } catch (err) {
-      alert("Kunde inte lägga till landet.");
-      console.error(err);
+  const codeToSend = country.code;
+
+  try {
+    await addCountryToList(user.id, selectedList, codeToSend);
+
+    // Uppdatera rätt lista i state direkt
+    if (selectedList === "favorites") {
+      setFavorites((prev) => [...prev, country]);
+    } else if (selectedList === "travels") {
+      setTravels((prev) => [...prev, country]);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Något gick fel vid tillägg av landet.");
+  }
+};
 
   const handleMove = async (
     fromType: "favorites" | "travels",

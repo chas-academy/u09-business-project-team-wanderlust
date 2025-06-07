@@ -4,7 +4,7 @@ const BASE_API_URL = 'https://restcountries.com/v3.1';
 
 export const getAllCountries = async () => {
     // Lägg till vilka fält du vill ha, t.ex. namn, flagga, population etc.
-    const fields = ['name', 'flags'].join(',');
+    const fields = ['name', 'flags','cca2'].join(',');
 
     const response = await fetch(`${BASE_API_URL}/all?fields=${fields}`);
     if (!response.ok) {
