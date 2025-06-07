@@ -7,8 +7,6 @@ import router from './router/router'
 
 import { UserProvider } from "./features/auth/UserContext"
 
-import App from './App'
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
