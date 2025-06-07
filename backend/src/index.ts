@@ -8,6 +8,9 @@ import cors from 'cors';
 import expressSession from 'express-session';
 import passport from "passport";
 import './middleware/passport';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,11 +18,13 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // Middleware
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'http://localhost:5173',
+  "https://u09-team-wanderlust-frontend.netlify.app"
+];
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    "https://u09-team-wanderlust-frontend.netlify.app"
-  ],
+  origin: allowedOrigins,
   credentials: true
 }));
 
@@ -51,10 +56,12 @@ app.get("/auth/google", passport.authenticate("google", {
     scope: ["profile", "email"],
 }));
 
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
 app.get('/auth/google/callback',
   passport.authenticate('google', {
-    failureRedirect: "http://localhost:5173",
-    successRedirect: "http://localhost:5173/profil"
+    failureRedirect: frontendUrl,
+    successRedirect: `${frontendUrl}/profil`
   })
 );
 
