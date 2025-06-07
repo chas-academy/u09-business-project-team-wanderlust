@@ -21,7 +21,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`${API_BASE_URL}/api/countries`);
+      const response = await fetch(`${API_BASE_URL}/countries`);
       if (!response.ok) throw new Error("Kunde inte hämta länder");
       const data = await response.json();
 
@@ -44,7 +44,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       setSearchError(null);
-      const response = await fetch(`${API_BASE_URL}/api/countries/${name}`);
+      const response = await fetch(`${API_BASE_URL}/countries/${name}`);
       if (!response.ok) throw new Error("Kunde inte hitta landet");
 
       const data = await response.json();
