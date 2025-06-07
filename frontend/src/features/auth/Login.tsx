@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const Login = () => {
   // const { login } = useUser();
   // const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
+  const [ setUser ] = useState<any>(null);
 
   const fetchUser = async () => {
     const res = await fetch("http://localhost:3000/auth/user", {

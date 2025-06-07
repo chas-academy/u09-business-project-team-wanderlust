@@ -25,18 +25,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (user: User) => setUser(user);
   const logout = async() => {
-    await axios("http://localhost:3000/auth/logout", {
+    await axios.get("http://localhost:3000/auth/logout", {
       withCredentials: true
     })
     setUser(null)
   };
-
+  interface UserResponse {
+  _id: string;
+  email: string;
+  username: string;
+}
   useEffect(() => {
     const fetchUser = async() => {
       if (user) return; 
-      const res = await axios("http://localhost:3000/auth/user", {
+      const res = await axios.get<UserResponse>(`http://localhost:3000/auth/user`, {
         withCredentials: true
-      })
+      });
+
       if (!res.data) {
         setUser(null)
         setIsLoading(false)

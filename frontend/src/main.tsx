@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import router from './router/router'
 // import { Provider } from 'react-redux'
@@ -9,7 +9,7 @@ import router from './router/router'
 
 import { UserProvider } from "./features/auth/UserContext"
 
-import App from './App'
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
