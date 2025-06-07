@@ -39,7 +39,7 @@ export const ProfilePage = () => {
         console.log("Alla länder från API:", countries.slice(0, 10));
         console.log("Alla länder:", countries);
 
-        setAllCountries(countries);
+        setAllCountries(countries.slice().sort((a, b) => a.name.localeCompare(b.name)));
         setFavorites(favData.countries);
         setTravels(travelData.countries);
         setError(null);
