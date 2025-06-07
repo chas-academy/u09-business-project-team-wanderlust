@@ -34,12 +34,17 @@ app.use(cors({
 app.use(express.json());
 
 // Session och Passport (måste komma innan routes som använder auth)
-app.use(expressSession({ 
-  secret: 'hemligt', 
-  resave: false, 
-  saveUninitialized: false,
-  //cookie: { secure: false } // sätt true om du kör HTTPS
+app.use(
+  expressSession({ 
+    secret: 'hemligt', 
+    resave: false, 
+    saveUninitialized: false,
+    cookie: { 
+      secure: true,
+      sameSite: "none"
+    }
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
