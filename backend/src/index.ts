@@ -1,4 +1,6 @@
 import express, { Request, Response } from "express";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import { connectDB } from './config/db';
 import countryRoutes from './routes/countries.routes';
 import userRoutes from './routes/user.routes';
@@ -19,7 +21,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 connectDB();
-
+const mongoUrl = process.env.MONGO_URI || "mongodb://localhost:27017/Wunderlust";
 // Middleware
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:5173'
@@ -38,11 +40,17 @@ app.use(
     secret: 'hemligt', 
     resave: false, 
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: mongoUrl,
+      collectionName: "sessions",
+    }),
     cookie: { /*
       secure: true,
       sameSite: "none"*/
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }));
 
@@ -60,31 +68,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/lists', listRoutes);
 app.use('/api/protected', protectedRoutes);
 app.use("/api/auth", authRoutes);
-/*
-// Auth routes
-app.get("/auth/google", passport.authenticate("google", {
-    scope: ["profile", "email"],
-}));
 
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
-
-app.get('/auth/google/callback',
-  passport.authenticate('google', {
-    failureRedirect: frontendUrl,
-    successRedirect: `${frontendUrl}/profil`
-  })
-);
-
-app.get("/auth/logout", (req: Request, res: Response, next) => {
-    req.logout(err => {
-        if (err) return next(err);
-        res.sendStatus(200);
-    });
-});
-
-app.get("/auth/user", (req: Request, res: Response) => {
-    res.json(req.user || null);
-});*/
 
 // Starta servern - efter alla middleware och routes är registrerade
 app.listen(PORT, () => {
