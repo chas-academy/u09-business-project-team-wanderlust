@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 
 const router = express.Router();
 
-const frontendUrl = /* process.env.FRONTEND_URL || "http://localhost:5173" ||*/ "https://u09-team-wanderlust-frontend.onrender.com";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
 router.get("/google", passport.authenticate("google", {
   scope: ["profile", "email"],

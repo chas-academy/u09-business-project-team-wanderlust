@@ -22,8 +22,7 @@ connectDB();
 
 // Middleware
 const allowedOrigins = [
-  /* process.env.FRONTEND_URL || 'http://localhost:5173', */
-  "https://u09-team-wanderlust-frontend.onrender.com"
+  process.env.FRONTEND_URL || 'http://localhost:5173'
 ];
 
 app.use(cors({
