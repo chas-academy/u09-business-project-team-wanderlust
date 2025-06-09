@@ -39,9 +39,11 @@ app.use(
     secret: 'hemligt', 
     resave: false, 
     saveUninitialized: false,
-    cookie: { 
+    cookie: { /*
       secure: true,
-      sameSite: "none"
+      sameSite: "none"*/
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     }
 }));
 
