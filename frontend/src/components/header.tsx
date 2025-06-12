@@ -25,7 +25,7 @@ export const Header = () => {
           {!user ? (
             <li><Link className={styles.link} to="/login">Logga in</Link></li>
           ) : (
-            <li><button className={styles.link} onClick={handleLogout}>Logga ut</button></li>
+            <li><button className={`${styles.link} logoutBtn`} id="logoutBtn" onClick={handleLogout}>Logga ut</button></li>
           )}
         </ul>
       </nav>
