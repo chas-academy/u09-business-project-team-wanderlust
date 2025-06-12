@@ -5,7 +5,8 @@
   font-size: x-large;
   width: 100vw;       
   display: flex;      
-  flex-direction: column; 
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .navList {
