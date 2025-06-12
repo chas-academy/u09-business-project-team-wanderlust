@@ -21,11 +21,8 @@ const router = createBrowserRouter([
         ),
       },
       { path: "compare", element: <CompareCountriesPage /> },
+      { path: "login", element: <Login /> },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
   },
 ]);
 
