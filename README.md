@@ -48,7 +48,8 @@ Projektet är skrivet i **TypeScript** för både frontend och backend.
 
 - Google OAuth 2.0  
 - Sessionsbaserad autentisering via cookies  
-- Passport.js middleware för att skydda API-routes  
+- Passport.js middleware för att skydda API-routes
+- Inloggning med Safari ur funktion för tillfället  
 
 ---
 
