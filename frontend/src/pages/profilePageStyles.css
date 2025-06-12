@@ -47,6 +47,7 @@
     min-width: 280px;
     max-width: 600px;
     margin-bottom: 2rem;
+    padding-left: 20px;
 }
 
 .form-controls {
