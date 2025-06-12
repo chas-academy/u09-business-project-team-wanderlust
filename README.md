@@ -107,3 +107,10 @@ Starta backend och frontend genom att köra följande kommando i respektive mapp
 ```bash
 npm run dev
 ```
+
+## Länkar till deployade sidorna
+### Backend
+https://u09-team-wanderlust-backend.onrender.com
+### Frontend
+https://u09-team-wanderlust-frontend.netlify.app
+
