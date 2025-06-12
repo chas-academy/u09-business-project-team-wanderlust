@@ -3,6 +3,9 @@
   color: black;
   padding: 1rem;
   font-size: x-large;
+  width: 100vw;       
+  display: flex;      
+  flex-direction: column; 
 }
 
 .navList {

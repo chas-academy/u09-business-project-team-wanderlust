@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-// import { Header } from "../components/Header";
-// import LoginPage from "../../pages/loginPage";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
 
@@ -30,8 +28,9 @@ const Login = () => {
   <div
     style={{
       backgroundColor: '#f3f4f6',
-      width: '200px',
-      height: '200px',
+
+      width: '100%',
+      //height: '200px',
       padding: '1rem',
       borderRadius: '0.5rem',
       border: '1px solidrgb(5, 5, 5)', // Tailwind border-gray-600
@@ -59,7 +58,7 @@ const Login = () => {
     {user ? (
       <p>Inloggad som: {user.username || user.email}</p>
     ) : (
-      <p>Inte inloggad, logga in genom att klicka på knappen ovan</p>
+      <p>Inte inloggad</p>
     )}
     
     </div>
